@@ -64,11 +64,11 @@ const ReviewCard = ({ review, index }: { review: Review, index: number }) => {
       viewport={{ once: true, margin: '-60px' }}
       transition={{
         duration: 0.6,
-        delay: index * 0.08,
+        delay: index * 0.,
         ease: [0.16, 1, 0.3, 1],
       }}
     >
-      <Card className="overflow-hidden group p-0 hover:cursor-pointer">
+      <Card hover className="overflow-hidden group p-0 hover:cursor-pointer">
         {/* IMAGE */}
         <div className="relative aspect-4/3 overflow-hidden">
           <Image

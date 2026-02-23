@@ -4,6 +4,9 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { HERO_BACKGROUND, AUDI_Q3_PNG } from "@/shared/lib/images";
 import { cn } from "@/shared/utils/utils";
+import { useState } from "react";
+import Modal from "@/shared/ui/Modal";
+import ContactForm from "./ContactForm";
 
 const TEXT_GRAY = "#6b7280";
 const GRADIENT_LEFT =
@@ -12,9 +15,15 @@ const GRADIENT_BOTTOM =
   "linear-gradient(to top, rgba(255,255,255,0.9) 0%, transparent 100%)";
 
 export default function HeroSection() {
-  const scrollToForm = () => {
-    const element = document.getElementById("contact-form");
-    if (element) element.scrollIntoView({ behavior: "smooth" });
+  const [openModal, setOpenModal] = useState(false);
+
+
+  const openContactForm = () => {
+    setOpenModal(true)
+  };
+
+  const closeContactForm = () => {
+    setOpenModal(false)
   };
 
   return (
@@ -101,7 +110,7 @@ export default function HeroSection() {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            onClick={scrollToForm}
+            onClick={openContactForm}
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
             className={cn(
@@ -114,6 +123,10 @@ export default function HeroSection() {
           </motion.button>
         </div>
       </div>
+      {/* Модалка */}
+      <Modal open={openModal} onClose={closeContactForm}>
+        <ContactForm onSubmitted={closeContactForm} />
+      </Modal>
     </section>
   );
 }

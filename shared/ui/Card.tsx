@@ -10,7 +10,7 @@ type CardProps = {
 export const Card = ({
   children,
   className,
-  hover = true,
+  hover = false,
 }: CardProps) => {
   return (
     <div
@@ -23,8 +23,8 @@ export const Card = ({
         `,
         hover &&
           `
-          hover:-translate-y-1
-          hover:shadow-[0_10px_40px_rgba(0,0,0,0.06)]
+          hover:-translate-y-0.5
+          hover:shadow-[0_5px_10px_rgba(0,0,0,0.06)]
           `,
         className
       )}

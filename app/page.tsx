@@ -4,7 +4,6 @@ import Advantages from "@/components/Advantages";
 import WorkStages from "@/components/WorkStages";
 import Reviews from "@/components/Reviews";
 import FAQ from "@/components/FAQ";
-import ContactForm from "@/components/ContactForm";
 import Contacts from "@/components/Contacts";
 import Footer from "@/components/Footer";
 
@@ -16,10 +15,9 @@ export default function Home() {
       <Advantages />
       <WorkStages />
       <Reviews />
-      <FAQ />
-      <ContactForm />
+      <FAQ />      
       <Contacts />
-      <Footer />
+      <Footer />      
     </main>
   );
 }

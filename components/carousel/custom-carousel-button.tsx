@@ -3,6 +3,7 @@ import { useCarousel } from './carousel'
 import { ArrowRight } from 'lucide-react'
 import { motion } from 'framer-motion'
 import { cn } from '@/shared/utils/utils'
+import GlassWrapper from '@/shared/ui/GlassWrapper'
 
 type Props = {
   direction: 'left' | 'right'
@@ -23,6 +24,7 @@ export const CustomCarouselButton = ({ direction = 'right' }: Props) => {
         direction === 'right' ? 'right-6' : 'left-6'
       )}
     >
+      <GlassWrapper className="rounded-full">
       <motion.button
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
@@ -33,25 +35,28 @@ export const CustomCarouselButton = ({ direction = 'right' }: Props) => {
           'flex items-center justify-center',
           'w-14 h-14',
           'rounded-full',
-          'backdrop-blur-md',
-          'bg-white/25',
-          // 'ring-1 ring-gray-100/40',
-          'shadow-[0_8px_32px_rgba(0,0,0,0.12)]',
-          'transition-all duration-300',
-          'hover:bg-white/35 hover:cursor-pointer',
-          'active:bg-white/45'
+          'text-white/70 group hover:text-white hover:cursor-pointer transition'
+          // 'backdrop-blur-md',
+          // 'bg-white/25',
+          // // 'ring-1 ring-gray-100/40',
+          // 'shadow-[0_8px_32px_rgba(0,0,0,0.12)]',
+          // 'transition-all duration-300',
+          // 'hover:bg-white/35 hover:cursor-pointer',
+          // 'active:bg-white/45'
         )}
       >
         {/* subtle inner highlight */}
-        <span className="absolute inset-0 rounded-full bg-gradient-to-b from-white/40 to-transparent opacity-10 pointer-events-none" />
+        <span className="absolute inset-0 rounded-full bg-linear-to-b from-white/40 to-transparent opacity-10 pointer-events-none" />
 
         <ArrowRight
-          className={twMerge(
-            'relative w-5 h-5 text-gray-900',
+          className={cn(
+            'relative w-5 h-5',
+            'group-hover:scale-105',
             direction === 'left' ? 'rotate-180' : ''
           )}
         />
       </motion.button>
+      </GlassWrapper>
     </div>
   )
 }

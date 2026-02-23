@@ -69,7 +69,7 @@ const WorkStagesCard = ({ stage, index }: { stage: TWorkStage, index: number }) 
     initial={{ opacity: 0, y: 20 }}
     whileInView={{ opacity: 1, y: 0 }}
     viewport={{ once: true }}
-    transition={{ duration: 0.6, delay: index * 0.1 }}
+    transition={{ duration: 0.6, delay: index * 0.01 }}
     className="h-full"
   >
     <Card className="h-full flex flex-col overflow-hidden group p-0">

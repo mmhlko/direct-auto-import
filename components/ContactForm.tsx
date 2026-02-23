@@ -4,8 +4,13 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { Card } from "@/shared/ui/Card";
 import { cn } from "@/shared/utils/utils";
+import Modal from "@/shared/ui/Modal";
 
-export default function ContactForm() {
+type Props = {
+  onSubmitted: () => void;
+}
+
+export default function ContactForm({ onSubmitted }: Props){
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
@@ -61,6 +66,7 @@ export default function ContactForm() {
       if (response.ok) {
         setIsSubmitted(true);
         setTimeout(() => {
+          onSubmitted()
           setIsSubmitted(false);
           setFormData({ name: "", phone: "", email: "", question: "" });
         }, 5000);
@@ -85,16 +91,15 @@ export default function ContactForm() {
   };
 
   return (
-    <section id="contact-form" className="py-20 bg-white">
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="max-w-2xl mx-auto"
+          className="max-w-xl mx-auto"
         >
-          <div className="text-center mb-12">
+          <div className="text-center mb-8">
             <h2 className="text-4xl md:text-5xl font-bold text-[#1a1a1a] mb-4">
               Свяжитесь с нами
             </h2>
@@ -108,8 +113,7 @@ export default function ContactForm() {
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
             >
-              <Card className="bg-green-50 border-2 border-green-500 p-8 text-center" hover={false}>
-                <div className="text-green-600 text-5xl mb-4">✓</div>
+              <Card className="bg-white/70 p-8 text-center" hover={false}>
                 <h3 className="text-2xl font-bold text-gray-900 mb-2">
                   Спасибо за заявку!
                 </h3>
@@ -119,7 +123,7 @@ export default function ContactForm() {
               </Card>
             </motion.div>
           ) : (
-            <Card className="p-6 md:p-8">
+            <Card className="p-6 md:p-8 bg-white/70">
               <form onSubmit={handleSubmit} className="space-y-6">
               <div>
                 <label
@@ -137,7 +141,7 @@ export default function ContactForm() {
                   className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 ${
                     errors.name
                       ? "border-red-500 focus:ring-red-500"
-                      : "border-gray-300 focus:ring-blue-500"
+                      : "border-gray-300 focus:ring-brand-accent"
                   }`}
                   placeholder="Ваше имя"
                 />
@@ -162,7 +166,7 @@ export default function ContactForm() {
                   className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 ${
                     errors.phone
                       ? "border-red-500 focus:ring-red-500"
-                      : "border-gray-300 focus:ring-blue-500"
+                      : "border-gray-300 focus:ring-brand-accent"
                   }`}
                   placeholder="+7 (999) 123-45-67"
                 />
@@ -187,7 +191,7 @@ export default function ContactForm() {
                   className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 ${
                     errors.email
                       ? "border-red-500 focus:ring-red-500"
-                      : "border-gray-300 focus:ring-blue-500"
+                      : "border-gray-300 focus:ring-brand-accent"
                   }`}
                   placeholder="your@email.com"
                 />
@@ -212,7 +216,7 @@ export default function ContactForm() {
                   className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 ${
                     errors.question
                       ? "border-red-500 focus:ring-red-500"
-                      : "border-gray-300 focus:ring-blue-500"
+                      : "border-gray-300 focus:ring-brand-accent"
                   }`}
                   placeholder="Опишите ваш вопрос или требования к автомобилю"
                 />
@@ -237,6 +241,5 @@ export default function ContactForm() {
           )}
         </motion.div>
       </div>
-    </section>
   );
 }
