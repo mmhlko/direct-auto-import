@@ -76,7 +76,7 @@ export default function Header() {
       <motion.header
         className={cn(
           "z-50 border-b border-white/20 shadow-sm flex flex-col",
-          'fixed top-0 left-0 w-full'
+          'sticky top-0 left-0 w-full'
         )}
         style={{
           background: "rgba(255, 255, 255, 0.5)",
@@ -243,8 +243,8 @@ export default function Header() {
               exit={{ opacity: 0, height: 0 }}
               className="md:hidden border-t border-white/20"
               style={{
-                background: "rgba(255, 255, 255, 0.65)",
-                backdropFilter: "saturate(180%) blur(20px)",
+                // background: "rgba(255, 255, 255, 0.65)",
+                // backdropFilter: "saturate(180%) blur(20px)",
                 WebkitBackdropFilter: "saturate(180%) blur(20px)",
               }}
             >

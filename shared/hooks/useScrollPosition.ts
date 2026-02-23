@@ -4,17 +4,25 @@ export const useScrollPosition = () => {
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      const offset = window.scrollY;
-      setScrolled((prev) => {
-        if (!prev && offset > 100) return true;  // включаем после 50px
-        if (prev && offset < 30) return false;  // выключаем после 30px
-        return prev;
-      });
+    let ticking = false;
+
+    const update = () => {
+      const shouldBeScrolled = window.scrollY > 100;
+      setScrolled((prev) => (prev !== shouldBeScrolled ? shouldBeScrolled : prev));
+      ticking = false;
     };
-    window.addEventListener("scroll", handleScroll);
+
+    const handleScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(update);
+        ticking = true;
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   return scrolled;
-}
+};
