@@ -1,8 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { FaBars, FaTimes, FaPhone, FaMapMarkerAlt, FaTelegramPlane } from "react-icons/fa";
-import { FaWhatsapp } from "react-icons/fa";
+import { FaBars, FaTimes, FaPhone, FaMapMarkerAlt, FaTelegramPlane, FaWhatsapp } from "react-icons/fa";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { cn } from "@/shared/utils/utils";
@@ -21,6 +20,34 @@ const menuItems = [
   { id: "faq", label: "ЧАВО" },
   { id: "contacts", label: "Контакты" },
 ];
+
+const socialLinks = [
+  {
+    type: 'address',
+    title: 'Москва, ул. Примерная 10',
+    href: '',
+    icon: FaMapMarkerAlt,
+  },
+  {
+    type: 'phone',
+    title: '+7 (495) 123-45-67',
+    href: 'tel:+74951234567',
+    icon: FaPhone,
+  },
+  {
+    type: 'telegram',
+    title: '@telegram',
+    href: 'https://t.me/directautoimport',
+    icon: FaTelegramPlane,
+  },
+
+  {
+    type: 'whatsapp',
+    title: 'Whatsapp',
+    href: 'https://wa.me/74951234567',
+    icon: FaWhatsapp,
+  },
+]
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -87,32 +114,63 @@ export default function Header() {
                 initial={{ height: "auto", opacity: 1 }}
                 animate={{ height: scrolled ? 0 : "auto", opacity: scrolled ? 0 : 1 }}
                 transition={{ duration: 0.3 }}
-                className="overflow-hidden"
+                className={cn(
+                  "overflow-hidden",
+                  "hidden md:block"
+                )}
               >
                 <div
-                  className="container mx-auto px-4 flex flex-wrap items-center gap-4 md:gap-6 justify-between text-sm flex-1 border-b border-black/5 pb-2 mb-2"
+                  className="container mx-auto px-4 flex flex-wrap items-center gap-4 md:gap-6 justify-center text-sm flex-1 border-b border-black/5 pb-2 mb-2"
                   style={{ color: TEXT_GRAY }}
                 >
                   <div className="flex items-center gap-4 md:gap-6 flex-wrap">
-                    <div className="flex items-center gap-2">
+                    {socialLinks.map((linkItem, key) => (
+                      <div key={key} className="flex items-center gap-1.5 flex-shrink-0">
+                        {linkItem.href ? (
+                          <a
+                            href={linkItem.href}
+                            className={cn(
+                              "inline-flex items-center justify-center gap-2 shrink-0 hover:opacity-80 transition",
+                              "w-8 h-8 lg:w-auto lg:h-auto rounded-full",
+                              "bg-brand-primary lg:bg-transparent"
+                            )}
+                          >
+                            <linkItem.icon className="shrink-0 text-white lg:text-brand-primary" />
+                            <span className="hidden lg:block">{linkItem.title}</span>
+                          </a>
+                        ) : (
+                          <div
+                            className={cn(
+                              "inline-flex items-center justify-center gap-2 shrink-0",
+                              "w-8 h-8 md:w-auto md:h-auto rounded-full",
+                              "bg-brand-primary md:bg-transparent"
+                            )}
+                          >
+                            <linkItem.icon className="shrink-0 text-brand-primary" />
+                            <span className="hidden md:block">{linkItem.title}</span>
+                          </div>
+                        )}
+                      </div>
+                    ))}
+                    {/*                     <div className="flex items-center gap-2">
                       <FaMapMarkerAlt className="shrink-0 text-gray-600" />
-                      <span>Москва, ул. Примерная 10</span>
+                      <span className="hidden lg:block">Москва, ул. Примерная 10</span>
                     </div>
                     <a
                       href="tel:+74951234567"
                       className="flex items-center gap-2 hover:opacity-80 transition"
                     >
                       <FaPhone className="shrink-0" />
-                      <span>+7 (495) 123-45-67</span>
+                      <span className="hidden lg:block">+7 (495) 123-45-67</span>
                     </a>
                     <a
                       href="https://t.me/directautoimport"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center gap-2 hover:opacity-80 transition"
+                      className="flex items-center gap-2 hover:opacity-80 transition w-8 h-8 rounded-full bg-brand-primary justify-center"
                     >
-                      <FaTelegramPlane className="shrink-0 text-brand-accent" />
-                      <span>@telegram</span>
+                      <FaTelegramPlane className="shrink-0 text-white" />
+                      <span className="hidden lg:block">@telegram</span>
                     </a>
                     <div className="flex items-center gap-1.5">
                       <a
@@ -131,7 +189,7 @@ export default function Header() {
                       >
                         <FaMapMarkerAlt size={12} />
                       </a>
-                    </div>
+                    </div> */}
                   </div>
                 </div>
               </motion.div>
@@ -150,18 +208,18 @@ export default function Header() {
                 ))}
               </div>
             </div>
-{/* Кнопка */}
-<button
-            onClick={openContactForm}
-            className={cn(
-              "text-white px-5 py-2.5 rounded-lg font-medium text-sm shrink-0 shadow-md transition",
-              "bg-linear-to-b from-brand-primary to-brand-accent",
-              "hover:opacity-95 hover:cursor-pointer"
-            )}
-          >
-            Заказать авто
-          </button>
-          </div>         
+            {/* Кнопка */}
+            <button
+              onClick={openContactForm}
+              className={cn(
+                "text-white px-5 py-2.5 rounded-lg font-medium text-sm shrink-0 shadow-md transition",
+                "bg-linear-to-b from-brand-primary to-brand-accent",
+                "hover:opacity-95 hover:cursor-pointer"
+              )}
+            >
+              Заказать авто
+            </button>
+          </div>
 
           {/* Кнопка мобильного меню */}
           <div className="md:hidden flex items-center pl-2">
